@@ -1,0 +1,11 @@
+# folders
+Testing
+CMakeFiles
+
+# files
+cmake_install.cmake
+CMakeCache.txt
+CTestTestfile.cmake
+Makefile
+statsd-test
+.DS_Store
