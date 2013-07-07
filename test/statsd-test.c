@@ -1,4 +1,5 @@
 #include <unistd.h>
+#include <assert.h>
 #include "statsd.h"
 
 int main(void) {
@@ -6,22 +7,22 @@ int main(void) {
     statsd_t *link, *link2;
 
     link = statsd_init("127.0.0.1", 8125);
-    statsd_count(link, "count1", 123, 1.0);
+    assert(statsd_count(link, "count1", 123, 1.0) == 0);
 
     link2 = statsd_init_with_namespace("127.0.0.1", 8125, "mynamespace");
-    statsd_count(link, "count2", 125, 1.0);
-    statsd_gauge(link, "speed", 10);
-    statsd_timing(link2, "request", 2400);
+    assert(statsd_count(link, "count2", 125, 1.0) == 0);
+    assert(statsd_gauge(link, "speed", 10) == 0);
+    assert(statsd_timing(link2, "request", 2400) == 0);
 
     sleep(1);
 
-    statsd_inc(link, "count1", 1.0);
-    statsd_dec(link2, "count2", 1.0);
+    assert(statsd_inc(link, "count1", 1.0) == 0);
+    assert(statsd_dec(link2, "count2", 1.0) == 0);
 
     int i;
 
     for (i=0; i<10; i++) {
-        statsd_count(link2, "count3", i, 0.8);
+        assert(statsd_count(link2, "count3", i, 0.8) == 0);
     }
 
     statsd_finalize(link);
