@@ -13,6 +13,8 @@
 #include <sys/socket.h>
 
 #define MAX_MSG_LEN 100
+#define STATSD_DEFAULT_PORT 8125
+
 
 typedef struct {
     struct sockaddr_in server;
